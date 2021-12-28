@@ -15,6 +15,13 @@
       <Employee :info="employee"></Employee>
       </v-col>
     </v-row>
+    <v-btn
+      fab
+      style="position: absolute; bottom: 2rem; right: 2rem"
+      @click="openCreateDrawer()"
+    >
+      <v-icon>mdi-plus</v-icon>
+    </v-btn>
   </v-container>
 </template>
 
@@ -22,6 +29,7 @@
 import Vue from 'vue'
 import { EmployeeModel } from '../model/models/employee.model'
 import { CountryEnum } from '../model/enums/enums';
+import { mapMutations } from 'vuex'
 
 export default Vue.extend({
   data() {
@@ -76,6 +84,14 @@ export default Vue.extend({
           "juan.delatorre@cidenet.com.co"
         ),
       ]
+    }
+  },
+  methods: {
+    ...mapMutations({
+      setFiltersDrawer: 'general/setFilterDrawer'
+    }),
+    openCreateDrawer() {
+      this.setFiltersDrawer(true);
     }
   }
 })

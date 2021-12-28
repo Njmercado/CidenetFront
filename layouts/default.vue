@@ -1,5 +1,8 @@
 <template>
   <v-app>
+    <FiltersDrawer
+      :open="filtersDrawer"
+    ></FiltersDrawer>
     <!-- <v-navigation-drawer
       v-model="drawer"
       :mini-variant="miniVariant"
@@ -35,12 +38,8 @@
       </v-list>
     </v-navigation-drawer> -->
     <v-app-bar :clipped-left="clipped" fixed app>
-      <v-btn icon @click.stop="filtersDrawer = !filtersDrawer">
+      <v-btn icon @click.stop="openFiltersDrawer()">
         <v-icon>mdi-filter</v-icon>
-      </v-btn>
-      <v-spacer />
-      <v-btn icon @click.stop="editDrawer = !editDrawer">
-        <v-icon>mdi-menu</v-icon>
       </v-btn>
     </v-app-bar>
     <v-main>
@@ -52,13 +51,14 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
 export default {
-  name: 'DefaultLayout',
   data() {
     return {
       clipped: false,
       drawer: false,
       fixed: false,
+      filtersDrawer: false,
       items: [
         {
           icon: 'mdi-apps',
@@ -71,5 +71,16 @@ export default {
       rightDrawer: false,
     }
   },
+  methods: {
+    ...mapGetters({
+      getFilterDrawer: 'general/getFilterDrawer'
+    }),
+    ...mapMutations({
+      setFiltersDrawer: 'general/setFiltersDrawer'
+    }),
+    openFiltersDrawer() {
+      this.filtersDrawer = !this.filtersDrawer;
+    }
+  }
 }
 </script>

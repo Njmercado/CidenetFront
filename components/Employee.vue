@@ -1,11 +1,17 @@
 <template>
-  <v-card style="cursor: pointer" @click="openDrawerEmployeeInfo">
+  <v-card
+    style="cursor: pointer; border-radius: 16px; padding: 4px 8px"
+    @click="openDrawerEmployeeInfo"
+    elevation="2"
+  >
     <v-card-title>
-
+      <div class="text-center" style="width: 100%;">
+        <v-icon style="font-size: 50px">mdi-account</v-icon>
+      </div>
     </v-card-title>
     <v-card-text>
       <v-row>
-        {{info.firstname}}
+        {{getFullName(info)}}
       </v-row>
       <v-row>
         {{info.email}}
@@ -31,6 +37,9 @@ export default Vue.extend({
   methods: {
     getArea(areaID: number) {
       return AreaEnum[areaID]
+    },
+    getFullName(info: EmployeeModel) {
+      return `${info.firstname} ${info.surname} ${info.secondSurname} ${info.othersnames}`;
     }
   }
 })
