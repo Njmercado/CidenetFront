@@ -10,17 +10,17 @@ export class EmployeeModel implements IEmployee {
     othersnames?: string | undefined;
     country: CountryEnum;
     idType: IDTypeEnum;
-    admissionDate: Date;
+    admissionDate?: Date;
     area?: AreaEnum;
     registerDate: Date;
-    
+
     constructor(
         firstname: string,
         surname: string,
         secondSurname: string,
         country: CountryEnum,
         idType: IDTypeEnum,
-        admissionDate: Date,
+        admissionDate?: Date,
         idNumber?: string,
         area?: AreaEnum,
         othersnames?: string | undefined,

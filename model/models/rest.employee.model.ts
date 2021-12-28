@@ -22,6 +22,13 @@ export class RestEmployee {
     this.filters = filters || {};
   }
 
+  getAllDataAsJson() {
+    return {
+      filters: this.getFiltersAsJson(),
+      paginator: this.paginator,
+    }
+  }
+
   getFiltersAsJson() {
 
     let jsonObj: any = {}

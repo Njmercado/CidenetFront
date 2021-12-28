@@ -1,6 +1,7 @@
 export const state = () => ({
   filterDrawer: Boolean,
-  createEditDrawer: Boolean
+  createEditDrawer: Boolean,
+  isEditMode: Boolean
 })
 
 export const getters = {
@@ -10,6 +11,9 @@ export const getters = {
   getCreateEditDrawer(state: any) {
     return state.createEditDrawer;
   },
+  getIsEditMode(state: any) {
+    return state.isEditMode;
+  }
 }
 
 export const mutations = {
@@ -18,5 +22,8 @@ export const mutations = {
   },
   setCreateEditDrawer(state: any, filter: Boolean) {
     state.createEditDrawer = filter;
+  },
+  setIsEditMode(state: any, mode: Boolean) {
+    state.isEditMode = mode
   }
 }

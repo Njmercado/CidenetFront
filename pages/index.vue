@@ -9,7 +9,7 @@
         md="3"
         lg="3"
         xl="3"
-        v-for="(employee, index) in employees"
+        v-for="(employee, index) in getEmployees()"
         :key="index"
       >
       <Employee :info="employee"></Employee>
@@ -29,69 +29,26 @@
 import Vue from 'vue'
 import { EmployeeModel } from '../model/models/employee.model'
 import { CountryEnum } from '../model/enums/enums';
-import { mapMutations } from 'vuex'
+import { mapMutations, mapGetters } from 'vuex'
 
 export default Vue.extend({
   data() {
     return {
-      employees: [
-        new EmployeeModel(
-          "JUAN",
-          "DE LA TORRE",
-          "CONSUEGRA",
-          CountryEnum["Colombia" as keyof typeof CountryEnum],
-          1,
-          new Date(2020, 1, 1),
-          "1",
-          1,
-          "",
-          "juan.delatorre@cidenet.com.co"
-        ),
-        new EmployeeModel(
-          "JUAN",
-          "DE LA TORRE",
-          "CONSUEGRA",
-          CountryEnum["Colombia" as keyof typeof CountryEnum],
-          1,
-          new Date(2020, 1, 1),
-          "1",
-          1,
-          "",
-          "juan.delatorre@cidenet.com.co"
-        ),
-        new EmployeeModel(
-          "JUAN",
-          "DE LA TORRE",
-          "CONSUEGRA",
-          CountryEnum["Colombia" as keyof typeof CountryEnum],
-          1,
-          new Date(2020, 1, 1),
-          "1",
-          1,
-          "",
-          "juan.delatorre@cidenet.com.co"
-        ),
-        new EmployeeModel(
-          "JUAN",
-          "DE LA TORRE",
-          "CONSUEGRA",
-          CountryEnum["Colombia" as keyof typeof CountryEnum],
-          1,
-          new Date(2020, 1, 1),
-          "1",
-          1,
-          "",
-          "juan.delatorre@cidenet.com.co"
-        ),
-      ]
     }
   },
   methods: {
+    ...mapGetters({
+      getEmployees: 'employee/getEmployees'
+    }),
     ...mapMutations({
-      setFiltersDrawer: 'general/setFilterDrawer'
+      setCreateEditDrawer: 'general/setCreateEditDrawer',
+      setIsEditMode: "general/setIsEditMode",
+      setEmployee: 'employee/setCurrentEmployee'
     }),
     openCreateDrawer() {
-      this.setFiltersDrawer(true);
+      this.setEmployee(null);
+      this.setIsEditMode(false);
+      this.setCreateEditDrawer(true);
     }
   }
 })

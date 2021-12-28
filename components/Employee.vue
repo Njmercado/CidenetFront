@@ -26,6 +26,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { EmployeeModel } from '../model/models/employee.model'
+import { mapMutations } from 'vuex'
 import { CountryEnum, AreaEnum } from '../model/enums/enums';
 
 export default Vue.extend({
@@ -35,11 +36,21 @@ export default Vue.extend({
     }
   },
   methods: {
+    ...mapMutations({
+      setCreateEditDrawer: 'general/setCreateEditDrawer',
+      setIsEditMode: 'general/setIsEditMode',
+      setCurrentEmployee: 'employee/setCurrentEmployee'
+    }),
     getArea(areaID: number) {
       return AreaEnum[areaID]
     },
     getFullName(info: EmployeeModel) {
       return `${info.firstname} ${info.surname} ${info.secondSurname} ${info.othersnames}`;
+    },
+    openDrawerEmployeeInfo() {
+      this.setIsEditMode(true)
+      this.setCurrentEmployee(this.info)
+      this.setCreateEditDrawer(true)
     }
   }
 })
