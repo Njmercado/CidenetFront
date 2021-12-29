@@ -70,16 +70,12 @@ export const actions = {
       }
     })
 
-    console.log(response)
-
     if(response.data.Error) {
       context.commit("setError", response.data.Message)
     }
   },
   async updateEmployee(context: any, payload: any) {
-    console.log(payload)
     const response = await axios.put(`${EMPLOYEES}`, payload)
-    console.log(response)
 
     if(response.data.Error) {
       context.commit("setError", response.data.Message)

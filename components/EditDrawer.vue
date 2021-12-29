@@ -13,35 +13,83 @@
     </div>
     <v-list>
       <v-list-item>
-        <v-select v-model="fields.idType" outlined label="Tipo de identificación" :items="getAllIDTypes()" dense></v-select>
+        <v-select
+          v-model="fields.idType"
+          outlined
+          label="Tipo de identificación"
+          :items="getAllIDTypes()"
+          dense
+        ></v-select>
       </v-list-item>
 
       <v-list-item>
-        <v-text-field v-model="fields.idNumber" outlined label="Número identificación" dense></v-text-field>
+        <v-text-field
+          v-model="fields.idNumber"
+          outlined
+          label="Número identificación"
+          dense
+          :rules="[rules.required, rules.counter, rules.numeric]"
+        ></v-text-field>
       </v-list-item>
 
       <v-list-item>
-        <v-text-field v-model="fields.firstname" outlined label="Nombre" dense></v-text-field>
+        <v-text-field
+          v-model="fields.firstname"
+          outlined
+          label="Nombre"
+          dense
+          :rules="[rules.required, rules.counter, rules.uppercase]"
+        ></v-text-field>
       </v-list-item>
 
       <v-list-item>
-        <v-text-field v-model="fields.surname" outlined label="Apellido" dense></v-text-field>
+        <v-text-field
+          v-model="fields.surname"
+          outlined
+          label="Apellido"
+          dense
+          :rules="[rules.required, rules.counter, rules.uppercase]"
+        ></v-text-field>
       </v-list-item>
 
       <v-list-item>
-        <v-text-field v-model="fields.secondSurname" outlined label="Segundo apellido" dense></v-text-field>
+        <v-text-field
+          v-model="fields.secondSurname"
+          outlined
+          label="Segundo apellido"
+          dense
+          :rules="[rules.required, rules.counter, rules.uppercase]"
+        ></v-text-field>
       </v-list-item>
 
       <v-list-item>
-        <v-text-field v-model="fields.othersnames" outlined label="Otros nombres" dense></v-text-field>
+        <v-text-field
+          v-model="fields.othersnames"
+          outlined
+          label="Otros nombres"
+          dense
+          :rules="[rules.counter, rules.uppercase]"
+        ></v-text-field>
       </v-list-item>
 
       <v-list-item>
-        <v-select v-model="fields.area" outlined label="Area" :items="getAllAreas()" dense></v-select>
+        <v-select
+          v-model="fields.area"
+          outlined
+          label="Area"
+          :items="getAllAreas()"
+          dense
+        ></v-select>
       </v-list-item>
 
       <v-list-item>
-        <v-select v-model="fields.country" outlined label="Pais" :items="getAllCountries()" dense></v-select>
+        <v-select
+          v-model="fields.country"
+          outlined
+          label="Pais"
+          :items="getAllCountries()"
+          dense
+        ></v-select>
       </v-list-item>
 
       <v-list-item-action>
@@ -61,11 +109,13 @@
 import Vue from 'vue'
 import { mapGetters, mapMutations } from 'vuex'
 import { IDTypeEnum, CountryEnum, AreaEnum } from '../model/enums/enums';
+import { TextFieldRules } from '@/utils/rules';
 
 export default Vue.extend({
   data() {
     return {
       localOpen: false,
+      rules: {},
       fields: {
         _id: "",
         idNumber: "",
@@ -73,13 +123,16 @@ export default Vue.extend({
         surname: "",
         secondSurname: "",
         othersnames: "",
-        country: "" as string | number,
-        idType: "" as string | number,
+        country: "COLOMBIA" as string | number,
+        idType: "CEDULA_CIUDADANIA" as string | number,
         admissionDate: new Date(),
-        area: "" as string | number,
+        area: "ADMINISTRACION" as string | number,
         registerDate: ""
       }
     }
+  },
+  mounted() {
+    this.rules = TextFieldRules();
   },
   props: {
     open: {

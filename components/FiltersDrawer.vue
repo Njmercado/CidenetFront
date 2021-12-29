@@ -7,40 +7,95 @@
     <div style="margin-top: 16px; font-size: 40px; text-align: center;">Filtros</div>
     <v-list>
       <v-list-item>
-        <v-select v-model="filters.idType" outlined label="Tipo de identificación" :items="getAllIDTypes()" dense></v-select>
+        <v-select
+          v-model="filters.idType"
+          outlined
+          label="Tipo de identificación"
+          :items="getAllIDTypes()"
+          dense
+        ></v-select>
       </v-list-item>
 
       <v-list-item>
-        <v-text-field v-model="filters.idNumber" outlined label="Número identificación" dense></v-text-field>
+        <v-text-field
+          v-model="filters.idNumber"
+          outlined
+          label="Número identificación"
+          dense
+          :rules="[rules.counter, rules.numeric]"
+        ></v-text-field>
       </v-list-item>
 
       <v-list-item>
-        <v-text-field v-model="filters.firstname" outlined label="Nombre" dense></v-text-field>
+        <v-text-field
+          v-model="filters.firstname"
+          outlined
+          label="Nombre"
+          dense
+          :rules="[rules.counter, rules.uppercase]"
+        ></v-text-field>
       </v-list-item>
 
       <v-list-item>
-        <v-text-field v-model="filters.surname" outlined label="Apellido" dense></v-text-field>
+        <v-text-field
+          v-model="filters.surname"
+          outlined
+          label="Apellido"
+          dense
+          :rules="[rules.counter, rules.uppercase]"
+        ></v-text-field>
       </v-list-item>
 
       <v-list-item>
-        <v-text-field v-model="filters.secondSurname" outlined label="Segundo apellido" dense></v-text-field>
+        <v-text-field
+          v-model="filters.secondSurname"
+          outlined
+          label="Segundo apellido"
+          dense
+          :rules="[rules.counter, rules.uppercase]"
+        ></v-text-field>
       </v-list-item>
 
       <v-list-item>
-        <v-text-field v-model="filters.othersnames" outlined label="Otros nombres" dense></v-text-field>
+        <v-text-field
+          v-model="filters.othersnames"
+          outlined
+          label="Otros nombres"
+          dense
+          :rules="[rules.counter, rules.uppercase]"
+        ></v-text-field>
       </v-list-item>
 
       <v-list-item>
-        <v-select v-model="filters.area" outlined label="Area" :items="getAllAreas()" dense></v-select>
+        <v-select
+          v-model="filters.area"
+          outlined
+          label="Area"
+          :items="getAllAreas()"
+          dense
+        ></v-select>
       </v-list-item>
 
       <v-list-item>
-        <v-select v-model="filters.country" outlined label="Pais" :items="getAllCountries()" dense></v-select>
+        <v-select
+          v-model="filters.country"
+          outlined
+          label="Pais"
+          :items="getAllCountries()"
+          dense
+        ></v-select>
       </v-list-item>
 
       <v-list-item>
-        <v-text-field v-model="filters.email" outlined label="Email" dense></v-text-field>
+        <v-text-field
+          v-model="filters.email"
+          outlined
+          label="Email"
+          dense
+          :rules="[rules.counter, rules.uppercase]"
+        ></v-text-field>
       </v-list-item>
+
       <v-list-item-action>
         <v-btn dense rounded @click="filterResults()">filtrar</v-btn>
       </v-list-item-action>
@@ -55,6 +110,8 @@ import { mapGetters } from 'vuex'
 import { Paginator, RestEmployee } from '~/model/models/rest.employee.model';
 import { IEmployee } from '~/model/interfaces/employee.interface';
 import { EmployeeModel } from '~/model/models/employee.model';
+import { TextFieldRules } from '@/utils/rules'
+
 export default Vue.extend({
   data() {
     return {
@@ -70,8 +127,12 @@ export default Vue.extend({
         country: "",
         idType: "",
         area: "",
-      }
+      },
+      rules: {}
     }
+  },
+  mounted() {
+    this.rules = TextFieldRules();
   },
   props: {
     open: {
