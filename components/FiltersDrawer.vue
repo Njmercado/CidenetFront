@@ -11,7 +11,7 @@
       </v-list-item>
 
       <v-list-item>
-        <v-text-field v-model="filters._id" outlined label="Número identificación" dense></v-text-field>
+        <v-text-field v-model="filters.idNumber" outlined label="Número identificación" dense></v-text-field>
       </v-list-item>
 
       <v-list-item>
@@ -61,6 +61,7 @@ export default Vue.extend({
       localOpen: false,
       filters: {
         _id: "",
+        idNumber: "",
         firstname: "",
         surname: "",
         secondSurname: "",
@@ -112,7 +113,7 @@ export default Vue.extend({
         newIDType
       );
 
-      employeeModel._id = this.filters._id;
+      employeeModel.idNumber = this.filters.idNumber;
       employeeModel.area = newArea;
       employeeModel.othersnames = this.filters.othersnames;
       employeeModel.email = this.filters.email;

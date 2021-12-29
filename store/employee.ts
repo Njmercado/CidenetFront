@@ -1,6 +1,5 @@
 import { IEmployee } from '../model/interfaces/employee.interface';
-import { GET_EMPLOYEES } from '@/utils/routes.json'
-import { RestEmployee } from '@/model/models/rest.employee.model'
+import { EMPLOYEES } from '@/utils/routes.json'
 import axios from 'axios'
 import { EmployeeModel } from '~/model/models/employee.model';
 
@@ -39,7 +38,7 @@ export const actions = {
     const page = payload.paginator?.page || 0
     const documents = payload.paginator?.documents || 10
 
-    const finalURL = `${GET_EMPLOYEES}?page=${page}&documents=${documents}`
+    const finalURL = `${EMPLOYEES}?page=${page}&documents=${documents}`
     const filters =  payload.filters
 
     const response = await axios.get(finalURL, {
@@ -50,6 +49,40 @@ export const actions = {
       context.commit("setError", response.data.Data)
     } else {
       context.commit('setEmployees', response.data.Data)
+    }
+  },
+  async createEmployee(context: any, payload: any) {
+
+    payload.area = Number.parseInt(payload.area)
+    payload.country = Number.parseInt(payload.country)
+    payload.idType = Number.parseInt(payload.idType)
+
+    const response = await axios.post(`${EMPLOYEES}`, payload)
+
+    if(response.data.Error) {
+      context.commit("setError", response.data.Message)
+    }
+  },
+  async deleteEmployee(context: any, payload: any) {
+    const response = await axios.delete(`${EMPLOYEES}`, {
+      params:{
+        _id: payload
+      }
+    })
+
+    console.log(response)
+
+    if(response.data.Error) {
+      context.commit("setError", response.data.Message)
+    }
+  },
+  async updateEmployee(context: any, payload: any) {
+    console.log(payload)
+    const response = await axios.put(`${EMPLOYEES}`, payload)
+    console.log(response)
+
+    if(response.data.Error) {
+      context.commit("setError", response.data.Message)
     }
   }
 }

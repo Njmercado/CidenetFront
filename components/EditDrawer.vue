@@ -13,15 +13,41 @@
     </div>
     <v-list>
       <v-list-item>
+        <v-select v-model="fields.idType" outlined label="Tipo de identificación" :items="getAllIDTypes()" dense></v-select>
+      </v-list-item>
+
+      <v-list-item>
+        <v-text-field v-model="fields.idNumber" outlined label="Número identificación" dense></v-text-field>
+      </v-list-item>
+
+      <v-list-item>
+        <v-text-field v-model="fields.firstname" outlined label="Nombre" dense></v-text-field>
+      </v-list-item>
+
+      <v-list-item>
+        <v-text-field v-model="fields.surname" outlined label="Apellido" dense></v-text-field>
+      </v-list-item>
+
+      <v-list-item>
+        <v-text-field v-model="fields.secondSurname" outlined label="Segundo apellido" dense></v-text-field>
+      </v-list-item>
+
+      <v-list-item>
         <v-text-field v-model="fields.othersnames" outlined label="Otros nombres" dense></v-text-field>
       </v-list-item>
+
       <v-list-item>
-        <v-text-field v-model="fields.email" outlined label="Email" dense></v-text-field>
+        <v-select v-model="fields.area" outlined label="Area" :items="getAllAreas()" dense></v-select>
       </v-list-item>
+
+      <v-list-item>
+        <v-select v-model="fields.country" outlined label="Pais" :items="getAllCountries()" dense></v-select>
+      </v-list-item>
+
       <v-list-item-action>
         <div v-if="editMode">
-          <v-btn dense rounded @click="cancel()">Cancelar</v-btn>
-          <v-btn dense rounded @click="save()">Guardar</v-btn>
+          <v-btn dense rounded @click="deleteEmployee()">Eliminar</v-btn>
+          <v-btn dense rounded @click="update()">Actualizar</v-btn>
         </div>
         <div v-else>
           <v-btn dense rounded @click="create()">Crear</v-btn>
@@ -34,14 +60,24 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapGetters, mapMutations } from 'vuex'
+import { IDTypeEnum, CountryEnum, AreaEnum } from '../model/enums/enums';
+
 export default Vue.extend({
   data() {
     return {
       localOpen: false,
-      employee: {},
       fields: {
+        _id: "",
+        idNumber: "",
+        firstname: "",
+        surname: "",
+        secondSurname: "",
         othersnames: "",
-        email: ""
+        country: "" as string | number,
+        idType: "" as string | number,
+        admissionDate: new Date(),
+        area: "" as string | number,
+        registerDate: ""
       }
     }
   },
@@ -58,7 +94,16 @@ export default Vue.extend({
     open(val) {
       this.localOpen = !this.localOpen
       if(this.editMode) {
-        this.fields = this.currentEmployee();
+        this.fields = {...this.currentEmployee()};
+
+        // I cast values brought from DB as Number to their corresponding enum
+        const country = this.getAllCountries()[Number.parseInt(this.fields.country as string)];
+        const idType = this.getAllIDTypes()[Number.parseInt(this.fields.idType as string)];
+        const area = this.getAllAreas()[Number.parseInt(this.fields.area as string)];
+
+        this.fields.country = country as string;
+        this.fields.area = area as string;
+        this.fields.idType = idType as string;
       }
     },
   },
@@ -68,20 +113,59 @@ export default Vue.extend({
       setIsEditMode: 'general/setIsEditMode',
     }),
     ...mapGetters({
-      currentEmployee: 'employee/getCurrentEmployee'
+      currentEmployee: 'employee/getCurrentEmployee',
+      getErrors: "employee/getErrors"
     }),
+    getAllIDTypes() {
+      const idTypes = Object.values(IDTypeEnum);
+      return idTypes.slice(0, idTypes.length / 2)
+    },
+    getAllCountries() {
+      const countries = Object.values(CountryEnum);
+      return countries.slice(0, countries.length / 2)
+    },
+    getAllAreas() {
+      const areas = Object.values(AreaEnum);
+      return areas.slice(0, areas.length / 2)
+    },
     closeEditDrawer() {
       this.setIsEditMode(false);
       this.setCreateEditDrawer(false)
     },
-    save() {
-      console.log("")
+    update() {
+      const newIDType = IDTypeEnum[this.fields.idType.toString() as keyof typeof IDTypeEnum]
+      const newArea = AreaEnum[this.fields.area.toString() as keyof typeof AreaEnum]
+      const country: CountryEnum = CountryEnum[this.fields.country.toString() as keyof typeof CountryEnum]
+
+      this.fields.idType = newIDType as number;
+      this.fields.area = newArea as number;
+      this.fields.country = country as number;
+
+      this.$store.dispatch("employee/updateEmployee", this.fields)
     },
-    cancel() {
-      this.closeEditDrawer()
+    deleteEmployee() {
+
+      if(window.confirm(`Estás seguro/a de eliminar el empleado: ${this.fields.firstname} ${this.fields.surname}`)) {
+        this.$store.dispatch("employee/deleteEmployee", this.fields._id)
+
+        const error = this.getErrors();
+
+        if(error) {
+          alert(error)
+        }
+      }
     },
     create() {
-      console.log("")
+
+      const newIDType = IDTypeEnum[this.fields.idType.toString() as keyof typeof IDTypeEnum]
+      const newArea = AreaEnum[this.fields.area.toString() as keyof typeof AreaEnum]
+      const country: CountryEnum = CountryEnum[this.fields.country.toString() as keyof typeof CountryEnum]
+
+      this.fields.idType = newIDType as number;
+      this.fields.area = newArea as number;
+      this.fields.country = country as number;
+
+      this.$store.dispatch("employee/createEmployee", this.fields)
     }
   }
 })

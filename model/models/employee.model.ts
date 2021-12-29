@@ -3,6 +3,7 @@ import { IEmployee } from '../interfaces/employee.interface'
 
 export class EmployeeModel implements IEmployee {
     _id?: string;
+    idNumber?: string;
     email?: string;
     firstname: string;
     surname: string;
@@ -25,8 +26,10 @@ export class EmployeeModel implements IEmployee {
         area?: AreaEnum,
         othersnames?: string | undefined,
         email?: string,
+        _id?: string,
     ) {
-        this._id = idNumber;
+        this._id = _id;
+        this.idNumber = idNumber;
         this.email = email;
         this.firstname = firstname;
         this.surname = surname;

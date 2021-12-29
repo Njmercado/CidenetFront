@@ -28,6 +28,12 @@ export default {
       filtersDrawer: false,
     }
   },
+  mounted(){
+    this.$store.dispatch("employee/getAllEmployees", {
+      filters: {},
+      paginator: {}
+    })
+  },
   computed: {
     editDrawer() {
       return this.getEditDrawer();
@@ -43,7 +49,7 @@ export default {
       getIsEditMode: 'general/getIsEditMode',
     }),
     ...mapMutations({
-      setFiltersDrawer: 'general/setFiltersDrawer'
+      setFiltersDrawer: 'general/setFiltersDrawer',
     }),
     openFiltersDrawer() {
       this.filtersDrawer = !this.filtersDrawer;
