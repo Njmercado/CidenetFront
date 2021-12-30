@@ -25,7 +25,7 @@
           outlined
           label="Número identificación"
           dense
-          :rules="[rules.required, rules.counter]"
+          :rules="[rules.required, rules.counter, rules.regex]"
         ></v-text-field>
       </v-list-item>
 
@@ -35,7 +35,7 @@
           outlined
           label="Nombre"
           dense
-          :rules="[rules.required, rules.counter, rules.uppercase]"
+          :rules="[rules.required, rules.counter, rules.uppercase, rules.regex]"
         ></v-text-field>
       </v-list-item>
 
@@ -45,7 +45,7 @@
           outlined
           label="Apellido"
           dense
-          :rules="[rules.required, rules.counter, rules.uppercase]"
+          :rules="[rules.required, rules.counter, rules.uppercase, rules.regex]"
         ></v-text-field>
       </v-list-item>
 
@@ -55,7 +55,7 @@
           outlined
           label="Segundo apellido"
           dense
-          :rules="[rules.required, rules.counter, rules.uppercase]"
+          :rules="[rules.required, rules.counter, rules.uppercase, rules.regex]"
         ></v-text-field>
       </v-list-item>
 
@@ -65,7 +65,7 @@
           outlined
           label="Otros nombres"
           dense
-          :rules="[rules.counter, rules.uppercase]"
+          :rules="[rules.counter, rules.uppercase, rules.regex]"
         ></v-text-field>
       </v-list-item>
 
