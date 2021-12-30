@@ -1,16 +1,20 @@
 <template>
   <v-app>
+    <!-- Error notifications -->
     <v-snackbar
-      color="red accent-2"
-      v-model="showErrors"
+      :color="showErrors? 'red accent-2': showSuccessMessage? 'success': ''"
+      v-model="openNotifications"
     >
       <div
-        v-for="(error, index) in getErrors()"
+        v-for="(notification, index) in notifications"
         :key="index"
       >
-        {{error}}
+        {{notification}}
       </div>
     </v-snackbar>
+
+
+
     <FiltersDrawer
       :open="filtersDrawer"
     ></FiltersDrawer>
@@ -38,6 +42,9 @@ export default {
     return {
       filtersDrawer: false,
       showErrors: false,
+      showSuccessMessage: false,
+      openNotifications: false,
+      notifications: "" || [],
     }
   },
   mounted(){
@@ -55,11 +62,25 @@ export default {
     },
     computedErrors() {
       return this.getErrors();
+    },
+    computedSuccessMessage() {
+      return this.getSuccessMessage();
     }
   },
   watch: {
     computedErrors(val) {
       this.showErrors = val;
+      this.openNotifications = true;
+      this.notifications = val;
+      console.log("Errors: ")
+      console.log(val)
+    },
+    computedSuccessMessage(val) {
+      this.showSuccessMessage = val;
+      this.openNotifications = true;
+      this.notifications = val;
+      console.log("Success: ")
+      console.log(val)
     }
   },
   methods: {
@@ -68,6 +89,7 @@ export default {
       getEditDrawer: 'general/getCreateEditDrawer',
       getIsEditMode: 'general/getIsEditMode',
       getErrors: 'employee/getErrors',
+      getSuccessMessage: 'employee/getSuccessMessage'
     }),
     ...mapMutations({
       setFiltersDrawer: 'general/setFiltersDrawer',

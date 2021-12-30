@@ -7,7 +7,7 @@ export const state = () => ({
   employees: Array<IEmployee>(),
   currentEmployee: EmployeeModel,
   errors: Array<String>(),
-  setSuccessMessage: String,
+  successMessage: String,
 })
 
 export const getters = {
@@ -19,6 +19,9 @@ export const getters = {
   },
   getCurrentEmployee(state: any) {
     return state.currentEmployee;
+  },
+  getSuccessMessage(state: any) {
+    return state.successMessage;
   }
 }
 
@@ -59,12 +62,15 @@ export const actions = {
 
     payload.area = Number.parseInt(payload.area)
     payload.country = Number.parseInt(payload.country)
-    payload.idType = Number.parseInt(payload.idType)
+
+    console.log(payload)
 
     const response = await axios.post(`${EMPLOYEES}`, payload)
 
     if(response.data.Error) {
       context.commit("setError", response.data.Message)
+    } else {
+      context.commit("setSuccessMessage", response.data.Message)
     }
   },
   async deleteEmployee(context: any, payload: any) {
@@ -76,6 +82,8 @@ export const actions = {
 
     if(response.data.Error) {
       context.commit("setError", response.data.Message)
+    } else {
+      context.commit("setSuccessMessage", response.data.Message)
     }
   },
   async updateEmployee(context: any, payload: any) {
@@ -84,6 +92,8 @@ export const actions = {
 
         if(response.data.Error) {
           context.commit("setError", response.data.Message)
+        } else {
+          context.commit("setSuccessMessage", response.data.Message)
         }
       })
       .catch(error => {
