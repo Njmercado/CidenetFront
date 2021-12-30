@@ -2,6 +2,7 @@
   <v-app>
     <!-- Error notifications -->
     <v-snackbar
+      v-if="showErrors || showSuccessMessage"
       :color="showErrors? 'red accent-2': showSuccessMessage? 'success': ''"
       v-model="openNotifications"
     >

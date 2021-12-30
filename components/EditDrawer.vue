@@ -188,15 +188,18 @@ export default Vue.extend({
       return areas.slice(0, areas.length / 2)
     },
     update() {
-      const newIDType = IDTypeEnum[this.fields.idType.toString() as keyof typeof IDTypeEnum]
-      const newArea = AreaEnum[this.fields.area.toString() as keyof typeof AreaEnum]
-      const country: CountryEnum = CountryEnum[this.fields.country.toString() as keyof typeof CountryEnum]
 
-      this.fields.idType = newIDType as number;
-      this.fields.area = newArea as number;
-      this.fields.country = country as number;
+      const fieldsCopy = {...this.fields}
 
-      this.$store.dispatch("employee/updateEmployee", this.fields)
+      const newIDType = IDTypeEnum[fieldsCopy.idType.toString() as keyof typeof IDTypeEnum]
+      const newArea = AreaEnum[fieldsCopy.area.toString() as keyof typeof AreaEnum]
+      const country: CountryEnum = CountryEnum[fieldsCopy.country.toString() as keyof typeof CountryEnum]
+
+      fieldsCopy.idType = newIDType as number;
+      fieldsCopy.area = newArea as number;
+      fieldsCopy.country = country as number;
+
+      this.$store.dispatch("employee/updateEmployee", fieldsCopy)
     },
     deleteEmployee() {
 

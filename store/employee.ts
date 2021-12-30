@@ -53,8 +53,10 @@ export const actions = {
     })
 
     if(response.data.Error) {
+      context.commit("setSuccessMessage", false)
       context.commit("setError", response.data.Message)
     } else {
+      context.commit("setError", false)
       context.commit('setEmployees', response.data.Data)
     }
   },
@@ -68,8 +70,10 @@ export const actions = {
     const response = await axios.post(`${EMPLOYEES}`, payload)
 
     if(response.data.Error) {
+      context.commit("setSuccessMessage", false)
       context.commit("setError", response.data.Message)
     } else {
+      context.commit("setError", false)
       context.commit("setSuccessMessage", response.data.Message)
     }
   },
@@ -81,8 +85,10 @@ export const actions = {
     })
 
     if(response.data.Error) {
+      context.commit("setSuccessMessage", false)
       context.commit("setError", response.data.Message)
     } else {
+      context.commit("setError", false)
       context.commit("setSuccessMessage", response.data.Message)
     }
   },
@@ -91,8 +97,10 @@ export const actions = {
       .then(response => {
 
         if(response.data.Error) {
+          context.commit("setSuccessMessage", false)
           context.commit("setError", response.data.Message)
         } else {
+          context.commit("setError", false)
           context.commit("setSuccessMessage", response.data.Message)
         }
       })
