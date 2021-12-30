@@ -52,6 +52,18 @@ export const mutations = {
   },
   appendLocalEmployee(state: any, employee: any) {
     state.employees.push(employee);
+  },
+  updateLocalEmployee(state: any, employee: any) {
+    let index = -1
+
+    state.employees.find((localEmployee: any, i: any) => {
+      index = i;
+      return localEmployee._id === employee._id;
+    })
+
+    if(index > -1) {
+      state.employees[index] = employee
+    }
   }
 }
 
@@ -79,8 +91,6 @@ export const actions = {
 
     payload.area = Number.parseInt(payload.area)
     payload.country = Number.parseInt(payload.country)
-
-    console.log(payload)
 
     const response = await axios.post(`${EMPLOYEES}`, payload)
 
@@ -119,6 +129,7 @@ export const actions = {
         } else {
           context.commit("setError", false)
           context.commit("setSuccessMessage", response.data.Message)
+          context.commit("updateLocalEmployee", payload)
         }
       })
       .catch(error => {
