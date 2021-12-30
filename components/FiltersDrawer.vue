@@ -196,7 +196,7 @@ export default Vue.extend({
 
       const restEmployee = new RestEmployee(employeeModel)
 
-      await this.$store.dispatch('employee/getAllEmployees', restEmployee.getAllDataAsJson())
+      await this.$store.dispatch('employee/getAllEmployees', await restEmployee.getAllDataAsJson())
 
       const response = await this.getEmployees();
     },
