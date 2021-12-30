@@ -92,8 +92,20 @@
       <v-list-item-action style="width: 100%">
         <v-row justify="center" align="center" style="width: inherit">
           <div v-if="editMode">
-            <v-btn dense rounded @click="deleteEmployee()">Eliminar</v-btn>
-            <v-btn dense rounded @click="update()">Actualizar</v-btn>
+            <v-btn
+              color="error"
+              style="text-tranform: lowercase"
+              dense
+              rounded
+              @click="deleteEmployee()"
+            >Eliminar</v-btn>
+            <v-btn
+              color="blue"
+              style="color: white; text-tranform: lowercase;"
+              dense
+              rounded
+              @click="update()"
+            >Actualizar</v-btn>
           </div>
           <div v-else>
             <v-btn
