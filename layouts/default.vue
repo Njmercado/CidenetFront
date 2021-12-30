@@ -13,18 +13,19 @@
       </div>
     </v-snackbar>
 
-
-
     <FiltersDrawer
       :open="filtersDrawer"
     ></FiltersDrawer>
+
     <EditDrawer
       :open="editDrawer"
       :editMode="editMode"
     ></EditDrawer>
+
     <v-app-bar fixed app>
       <v-btn icon @click.stop="openFiltersDrawer()">
-        <v-icon>mdi-filter</v-icon>
+        <v-icon v-if="!filtersDrawer">mdi-filter</v-icon>
+        <v-icon v-else>mdi-close</v-icon>
       </v-btn>
     </v-app-bar>
     <v-main>

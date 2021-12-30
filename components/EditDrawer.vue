@@ -5,9 +5,6 @@
       app
       right
     >
-    <div>
-      <v-icon @click="closeEditDrawer()">mdi-close</v-icon>
-    </div>
     <div style="margin-top: 16px; font-size: 40px; text-align: center;">
       {{editMode? "Edición" : "Creación"}}
     </div>
@@ -92,14 +89,22 @@
         ></v-select>
       </v-list-item>
 
-      <v-list-item-action>
-        <div v-if="editMode">
-          <v-btn dense rounded @click="deleteEmployee()">Eliminar</v-btn>
-          <v-btn dense rounded @click="update()">Actualizar</v-btn>
-        </div>
-        <div v-else>
-          <v-btn dense rounded @click="create()">Crear</v-btn>
-        </div>
+      <v-list-item-action style="width: 100%">
+        <v-row justify="center" align="center" style="width: inherit">
+          <div v-if="editMode">
+            <v-btn dense rounded @click="deleteEmployee()">Eliminar</v-btn>
+            <v-btn dense rounded @click="update()">Actualizar</v-btn>
+          </div>
+          <div v-else>
+            <v-btn
+              color="success"
+              style="text-transform: lowercase"
+              dense
+              rounded
+              @click="create()"
+            >Crear</v-btn>
+          </div>
+        </v-row>
       </v-list-item-action>
     </v-list>
   </v-navigation-drawer>
@@ -181,10 +186,6 @@ export default Vue.extend({
     getAllAreas() {
       const areas = Object.values(AreaEnum);
       return areas.slice(0, areas.length / 2)
-    },
-    closeEditDrawer() {
-      this.setIsEditMode(false);
-      this.setCreateEditDrawer(false)
     },
     update() {
       const newIDType = IDTypeEnum[this.fields.idType.toString() as keyof typeof IDTypeEnum]

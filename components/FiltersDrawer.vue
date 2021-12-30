@@ -96,8 +96,16 @@
         ></v-text-field>
       </v-list-item>
 
-      <v-list-item-action>
-        <v-btn dense rounded @click="filterResults()">filtrar</v-btn>
+      <v-list-item-action style="width: 100%">
+        <v-row justify="center" align="center" style="width: inherit">
+          <v-btn
+            color="blue"
+            style="color: white; text-transform: lowercase; margin-left: -32px;"
+            dense
+            rounded
+            @click="filterResults()"
+          >filtrar</v-btn>
+        </v-row>
       </v-list-item-action>
     </v-list>
   </v-navigation-drawer>
