@@ -97,14 +97,21 @@
       </v-list-item>
 
       <v-list-item-action style="width: 100%">
-        <v-row justify="center" align="center" style="width: inherit">
+        <v-row justify="space-around" align="center" style="width: inherit">
           <v-btn
             color="blue"
-            style="color: white; text-transform: lowercase; margin-left: -32px;"
+            style="color: white; text-transform: lowercase; margin-left: -25px;"
             dense
             rounded
             @click="filterResults()"
           >filtrar</v-btn>
+          <v-btn
+            color="success"
+            style="color: white; text-transform: lowercase;"
+            dense
+            rounded
+            @click="cleanResults()"
+          >limpiar</v-btn>
         </v-row>
       </v-list-item-action>
     </v-list>
@@ -192,6 +199,21 @@ export default Vue.extend({
       await this.$store.dispatch('employee/getAllEmployees', restEmployee.getAllDataAsJson())
 
       const response = await this.getEmployees();
+    },
+    cleanResults() {
+      this.filters = {
+        _id: "",
+        idNumber: "",
+        firstname: "",
+        surname: "",
+        secondSurname: "",
+        othersnames: "",
+        email: "",
+        country: "",
+        idType: "",
+        area: "",
+      };
+      this.filterResults();
     }
   }
 })

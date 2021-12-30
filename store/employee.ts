@@ -37,6 +37,21 @@ export const mutations = {
   },
   setCurrentEmployee(state: any, employee: EmployeeModel) {
     state.currentEmployee = employee;
+  },
+  deleteLocalEmployee(state: any, _id: string) {
+    let index = -1
+
+    state.employees.find((employee: any, i: any) => {
+      index = i;
+      return employee._id === _id;
+    })
+
+    if(index > -1) {
+      state.employees.splice(index, 1)
+    }
+  },
+  appendLocalEmployee(state: any, employee: any) {
+    state.employees.push(employee);
   }
 }
 
@@ -75,6 +90,7 @@ export const actions = {
     } else {
       context.commit("setError", false)
       context.commit("setSuccessMessage", response.data.Message)
+      context.commit("appendLocalEmployee", payload)
     }
   },
   async deleteEmployee(context: any, payload: any) {
@@ -90,6 +106,7 @@ export const actions = {
     } else {
       context.commit("setError", false)
       context.commit("setSuccessMessage", response.data.Message)
+      context.commit("deleteLocalEmployee", payload)
     }
   },
   async updateEmployee(context: any, payload: any) {
