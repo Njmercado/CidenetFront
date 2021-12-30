@@ -94,14 +94,14 @@
           <div v-if="editMode">
             <v-btn
               color="error"
-              style="text-tranform: lowercase"
+              style="text-transform: lowercase"
               dense
               rounded
               @click="deleteEmployee()"
             >Eliminar</v-btn>
             <v-btn
               color="blue"
-              style="color: white; text-tranform: lowercase;"
+              style="color: white; text-transform: lowercase;"
               dense
               rounded
               @click="update()"
