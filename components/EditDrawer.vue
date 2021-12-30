@@ -146,8 +146,9 @@ export default Vue.extend({
   watch: {
     open(val) {
       this.localOpen = !this.localOpen
+      this.fields = {...this.currentEmployee()};
+
       if(this.editMode) {
-        this.fields = {...this.currentEmployee()};
 
         // I cast values brought from DB as Number to their corresponding enum
         const country = this.getAllCountries()[Number.parseInt(this.fields.country as string)];

@@ -46,7 +46,7 @@ export default Vue.extend({
       setEmployee: 'employee/setCurrentEmployee'
     }),
     openCreateDrawer() {
-      this.setEmployee(null);
+      this.setEmployee(new EmployeeModel("", "", "", 0, 0, new Date(), "", 0, "", undefined, ""));
       this.setIsEditMode(false);
       this.setCreateEditDrawer(true);
     }
