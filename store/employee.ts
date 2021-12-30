@@ -6,7 +6,7 @@ import { EmployeeModel } from '~/model/models/employee.model';
 export const state = () => ({
   employees: Array<IEmployee>(),
   currentEmployee: EmployeeModel,
-  errors: String
+  errors: Array<String>()
 })
 
 export const getters = {
@@ -25,8 +25,8 @@ export const mutations = {
   setEmployees(state: any, employees: Array<IEmployee>) {
     state.employees = employees;
   },
-  setError(state: any, error: string) {
-    state.error = error;
+  setError(state: any, errors: Array<String>) {
+    state.errors = errors;
   },
   setCurrentEmployee(state: any, employee: EmployeeModel) {
     state.currentEmployee = employee;
@@ -46,7 +46,7 @@ export const actions = {
     })
 
     if(response.data.Error) {
-      context.commit("setError", response.data.Data)
+      context.commit("setError", response.data.Message)
     } else {
       context.commit('setEmployees', response.data.Data)
     }
@@ -75,10 +75,16 @@ export const actions = {
     }
   },
   async updateEmployee(context: any, payload: any) {
-    const response = await axios.put(`${EMPLOYEES}`, payload)
+    console.log("inside update")
+    axios.put(`${EMPLOYEES}`, payload)
+      .then(response => {
 
-    if(response.data.Error) {
-      context.commit("setError", response.data.Message)
-    }
+        if(response.data.Error) {
+          context.commit("setError", response.data.Message)
+        }
+      })
+      .catch(error => {
+        context.commit("setError", error.data.Message)
+      })
   }
 }

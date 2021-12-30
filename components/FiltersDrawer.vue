@@ -184,8 +184,6 @@ export default Vue.extend({
       await this.$store.dispatch('employee/getAllEmployees', restEmployee.getAllDataAsJson())
 
       const response = await this.getEmployees();
-
-      console.log(response)
     }
   }
 })

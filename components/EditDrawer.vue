@@ -28,7 +28,7 @@
           outlined
           label="Número identificación"
           dense
-          :rules="[rules.required, rules.counter, rules.numeric]"
+          :rules="[rules.required, rules.counter]"
         ></v-text-field>
       </v-list-item>
 
@@ -195,17 +195,26 @@ export default Vue.extend({
       this.fields.country = country as number;
 
       this.$store.dispatch("employee/updateEmployee", this.fields)
+
+      setTimeout(() => {
+        const error = this.getErrors();
+        if(error) {
+          alert(error)
+        }
+      }, 1000)
     },
     deleteEmployee() {
 
       if(window.confirm(`Estás seguro/a de eliminar el empleado: ${this.fields.firstname} ${this.fields.surname}`)) {
         this.$store.dispatch("employee/deleteEmployee", this.fields._id)
 
+      setTimeout(() => {
         const error = this.getErrors();
-
         if(error) {
           alert(error)
         }
+      }, 1000)
+
       }
     },
     create() {
@@ -219,6 +228,13 @@ export default Vue.extend({
       this.fields.country = country as number;
 
       this.$store.dispatch("employee/createEmployee", this.fields)
+
+      setTimeout(() => {
+        const error = this.getErrors();
+        if(error) {
+          alert(error)
+        }
+      }, 1000)
     }
   }
 })
