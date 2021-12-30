@@ -1,5 +1,16 @@
 <template>
   <v-app>
+    <v-snackbar
+      color="red accent-2"
+      v-model="showErrors"
+    >
+      <div
+        v-for="(error, index) in getErrors()"
+        :key="index"
+      >
+        {{error}}
+      </div>
+    </v-snackbar>
     <FiltersDrawer
       :open="filtersDrawer"
     ></FiltersDrawer>
@@ -26,6 +37,7 @@ export default {
   data() {
     return {
       filtersDrawer: false,
+      showErrors: false,
     }
   },
   mounted(){
@@ -40,6 +52,14 @@ export default {
     },
     editMode() {
       return this.getIsEditMode();
+    },
+    computedErrors() {
+      return this.getErrors();
+    }
+  },
+  watch: {
+    computedErrors(val) {
+      this.showErrors = val;
     }
   },
   methods: {
@@ -47,6 +67,7 @@ export default {
       getFilterDrawer: 'general/getFilterDrawer',
       getEditDrawer: 'general/getCreateEditDrawer',
       getIsEditMode: 'general/getIsEditMode',
+      getErrors: 'employee/getErrors',
     }),
     ...mapMutations({
       setFiltersDrawer: 'general/setFiltersDrawer',

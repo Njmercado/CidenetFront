@@ -6,7 +6,8 @@ import { EmployeeModel } from '~/model/models/employee.model';
 export const state = () => ({
   employees: Array<IEmployee>(),
   currentEmployee: EmployeeModel,
-  errors: Array<String>()
+  errors: Array<String>(),
+  setSuccessMessage: String,
 })
 
 export const getters = {
@@ -27,6 +28,9 @@ export const mutations = {
   },
   setError(state: any, errors: Array<String>) {
     state.errors = errors;
+  },
+  setSuccessMessage(state: any, message: String) {
+    state.successMessage = message;
   },
   setCurrentEmployee(state: any, employee: EmployeeModel) {
     state.currentEmployee = employee;
@@ -75,7 +79,6 @@ export const actions = {
     }
   },
   async updateEmployee(context: any, payload: any) {
-    console.log("inside update")
     axios.put(`${EMPLOYEES}`, payload)
       .then(response => {
 
