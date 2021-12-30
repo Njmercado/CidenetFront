@@ -92,7 +92,7 @@
           outlined
           label="Email"
           dense
-          :rules="[rules.counter, rules.uppercase]"
+          :rules="[rules.email]"
         ></v-text-field>
       </v-list-item>
 

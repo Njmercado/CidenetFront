@@ -10,6 +10,9 @@ export const TextFieldRules = () => {
     numeric: (value: any) => {
       if(Number.parseInt(value) && value > 0) return true;
       return "Solo números";
+    },
+    email: (value: string) => {
+      return /(\w|\d)+@(\w|\d)+/.test(value) || "Correo invalido"
     }
   }
 }

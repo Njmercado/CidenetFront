@@ -33,14 +33,14 @@ export class RestEmployee {
 
     let jsonObj: any = {}
 
-    if(this.filters.country.toString()) jsonObj["country"] = this.filters.country
-    if(this.filters.idType) jsonObj["idType"] = this.filters.idType
-    if(this.filters.area) jsonObj["area"] = this.filters.area
+    if(this.filters.country?.toString()) jsonObj["country"] = this.filters.country
+    if(this.filters.idType?.toString()) jsonObj["idType"] = this.filters.idType
+    if(this.filters.area?.toString()) jsonObj["area"] = this.filters.area
     if(this.filters._id) jsonObj["_id"] = this.filters._id || /.*/
-    if(this.filters.email) jsonObj["email"] = this.filters.email || /.*/
-    if(this.filters.firstname) jsonObj["firstname"] = this.filters.firstname || /.*/
-    if(this.filters.surname) jsonObj["surname"] = this.filters.surname || /.*/
-    if(this.filters.secondSurname) jsonObj["secondSurname"] = this.filters.secondSurname || /.*/
+    if(this.filters.email) jsonObj["email"] = this.filters.email.trim() || /.*/
+    if(this.filters.firstname) jsonObj["firstname"] = this.filters.firstname.trim() || /.*/
+    if(this.filters.surname) jsonObj["surname"] = this.filters.surname.trim() || /.*/
+    if(this.filters.secondSurname) jsonObj["secondSurname"] = this.filters.secondSurname.trim() || /.*/
 
     return jsonObj;
   }
