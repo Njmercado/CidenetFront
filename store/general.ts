@@ -5,13 +5,13 @@ export const state = () => ({
 })
 
 export const getters = {
-  getFilterDrawer(state: any) {
+  getFilterDrawer(state: any): boolean {
     return state.filterDrawer;
   },
-  getCreateEditDrawer(state: any) {
+  getCreateEditDrawer(state: any): boolean {
     return state.createEditDrawer;
   },
-  getIsEditMode(state: any) {
+  getIsEditMode(state: any): boolean {
     return state.isEditMode;
   }
 }
@@ -23,7 +23,7 @@ export const mutations = {
   setCreateEditDrawer(state: any, filter: Boolean) {
     state.createEditDrawer = filter;
   },
-  setIsEditMode(state: any, mode: Boolean) {
+  setIsEditMode(state: any, mode: boolean) {
     state.isEditMode = mode
   }
 }

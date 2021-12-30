@@ -25,24 +25,36 @@
         </div>
       </v-col>
     </v-row>
-    <v-btn
-      v-if="!isDrawerInCreateOpen"
-      fab
-      color="success"
-      style="position: absolute; bottom: 2rem; right: 2rem"
-      @click="openCreateDrawer()"
-    >
-      <v-icon size="32">mdi-plus</v-icon>
-    </v-btn>
-    <v-btn
-      v-else
-      fab
-      color="error"
-      style="position: absolute; bottom: 2rem; right: 2rem"
-      @click="closeCreateDrawer()"
-    >
-      <v-icon size="32">mdi-close</v-icon>
-    </v-btn>
+    <div v-if="!isEditMode">
+      <v-btn
+        v-if="!isDrawerInCreateOpen"
+        fab
+        color="success"
+        style="position: absolute; bottom: 2rem; right: 2rem"
+        @click="openCreateDrawer()"
+      >
+        <v-icon size="32">mdi-plus</v-icon>
+      </v-btn>
+      <v-btn
+        v-else
+        fab
+        color="error"
+        style="position: absolute; bottom: 2rem; right: 2rem"
+        @click="closeCreateDrawer()"
+      >
+        <v-icon size="32">mdi-close</v-icon>
+      </v-btn>
+    </div>
+    <div v-else>
+      <v-btn
+        fab
+        color="error"
+        style="position: absolute; bottom: 2rem; right: 2rem"
+        @click="closeCreateDrawer()"
+      >
+        <v-icon size="32">mdi-close</v-icon>
+      </v-btn>
+    </div>
   </v-container>
 </template>
 
@@ -55,12 +67,24 @@ import { mapMutations, mapGetters } from 'vuex'
 export default Vue.extend({
   data() {
     return {
-      isDrawerInCreateOpen: false
+      isDrawerInCreateOpen: false,
+      isEditMode: false
+    }
+  },
+  computed: {
+    computedEditMode(): boolean {
+      return this.getIsEditMode();
+    }
+  },
+  watch: {
+    computedEditMode(val) {
+      this.isEditMode = val;
     }
   },
   methods: {
     ...mapGetters({
-      getEmployees: 'employee/getEmployees'
+      getEmployees: 'employee/getEmployees',
+      getIsEditMode: 'general/getIsEditMode'
     }),
     ...mapMutations({
       setCreateEditDrawer: 'general/setCreateEditDrawer',
@@ -78,6 +102,7 @@ export default Vue.extend({
       this.setIsEditMode(false);
       this.setCreateEditDrawer(false);
       this.isDrawerInCreateOpen = false;
+      this.isEditMode = false;
     }
   }
 })

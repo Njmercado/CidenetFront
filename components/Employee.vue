@@ -1,23 +1,29 @@
 <template>
   <v-card
-    style="cursor: pointer; border-radius: 16px; padding: 4px 8px"
+    color="#385F73"
+    style="cursor: pointer; border-radius: 16px; padding: 8px 16px"
+    height="250px"
     @click="openDrawerEmployeeInfo"
     elevation="2"
   >
     <v-card-title>
       <div class="text-center" style="width: 100%;">
-        <v-icon style="font-size: 50px">mdi-account</v-icon>
+        <v-icon style="font-size: 100px">mdi-account</v-icon>
       </div>
     </v-card-title>
-    <v-card-text>
+    <v-card-text class="white--text mt-12">
       <v-row>
-        {{getFullName(info)}}
-      </v-row>
-      <v-row>
-        {{info.email}}
+        <div style="font-size: 20px; font-weight: bold">
+          {{getFullName(info)}}
+        </div>
       </v-row>
       <v-row>
         {{getArea(info.area)}}
+      </v-row>
+      <v-row>
+        <div style="font-size: 15px">
+          {{info.email}}
+        </div>
       </v-row>
     </v-card-text>
   </v-card>
