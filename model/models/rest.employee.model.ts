@@ -33,7 +33,7 @@ export class RestEmployee {
 
     let jsonObj: any = {}
 
-    if(this.filters.country) jsonObj["country"] = this.filters.country
+    if(this.filters.country.toString()) jsonObj["country"] = this.filters.country
     if(this.filters.idType) jsonObj["idType"] = this.filters.idType
     if(this.filters.area) jsonObj["area"] = this.filters.area
     if(this.filters._id) jsonObj["_id"] = this.filters._id || /.*/

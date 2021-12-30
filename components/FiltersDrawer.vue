@@ -169,7 +169,7 @@ export default Vue.extend({
     },
     getAllCountries() {
       const countries = Object.values(CountryEnum);
-      return countries.slice(0, countries.length)
+      return countries.slice(0, countries.length / 2)
     },
     getAllAreas() {
       const areas = Object.values(AreaEnum);
